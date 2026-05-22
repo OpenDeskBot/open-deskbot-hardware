@@ -1,0 +1,44 @@
+name: Firmware CI
+
+on:
+  push:
+    branches: [main, master]
+  pull_request:
+    branches: [main, master]
+
+jobs:
+  build-esp32s3-v2:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: deskbot-rom
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Install PlatformIO
+        run: pip install platformio
+
+      - name: Build production firmware
+        run: pio run -e esp32s3_v2_0_1
+
+  build-camera:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: deskbot-camera
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Install PlatformIO
+        run: pip install platformio
+
+      - name: Build camera firmware
+        run: pio run -e seeed_xiao_esp32s3

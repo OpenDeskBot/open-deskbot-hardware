@@ -1,0 +1,15 @@
+#pragma once
+
+/* 默认 WiFi — 请在仓库根目录 deskbot.local.env 中设置 WIFI_SSID / WIFI_PASSWORD。
+ * flash_*.sh 烧录时自动生成 firmware/wifi_defaults.h。
+ *
+ * SSID 留空：主控 ROM 进入配网热点 Deskbot_Rom；摄像头进入 Deskbot_Camera。
+ */
+
+#ifndef WIFI_DEFAULT_SSID
+#define WIFI_DEFAULT_SSID ""
+#endif
+
+#ifndef WIFI_DEFAULT_PASSWORD
+#define WIFI_DEFAULT_PASSWORD ""
+#endif
