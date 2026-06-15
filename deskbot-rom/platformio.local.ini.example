@@ -1,8 +1,0 @@
-; 可选：覆盖 platformio.ini 中的其它 build_flags。
-; device_id 与远程服务器请在仓库根目录 deskbot.local.env 配置（flash_*.sh 自动注入）。
-;
-; Path: deskbot-rom/platformio.local.ini
-
-[env:esp32s3_v2_0_1]
-build_flags =
-	${env:esp32s3_v2_0_1.build_flags}

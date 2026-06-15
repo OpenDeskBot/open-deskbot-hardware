@@ -12,7 +12,7 @@ We pledge to make participation in our community a harassment-free experience fo
 
 ## Enforcement
 
-Report unacceptable behavior to **mark.yang@ewen.ltd**. All complaints will be reviewed and investigated promptly and fairly.
+Report unacceptable behavior to **baiming.ma@gmail.com**. All complaints will be reviewed promptly and fairly.
 
 Project maintainers may remove, edit, or reject comments, commits, code, issues, and other contributions that are not aligned with this Code of Conduct.
 

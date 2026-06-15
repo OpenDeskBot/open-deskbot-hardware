@@ -1,78 +1,74 @@
-# Open Deskbot
+# Brufik
 
 [中文](README_zh.md) | English
 
-**Open Deskbot** is an open-source desktop robot: a small ESP32-S3 body with OLED face, microphone, speaker, and a 2-DOF head, plus an optional camera module. Voice and vision run on **your own server**—firmware connects over WiFi/WebSocket; no cloud lock-in.
+**Hardware in this repository is under [CERN-OHL-S-2.0](mechanical/LICENSE); software is under [GPL-3.0](firmware/LICENSE).**
 
-> Backend (ASR / LLM / TTS / vision routing): deploy [opendesk-service](https://github.com/OpenDeskBot/open-deskbot-service) separately.
+**Brufik** is an open-source deskbot on **Seeed XIAO ESP32S3 Sense**. Backend: [open-deskbot-service](https://github.com/OpenDeskBot/open-deskbot-service).
 
-## Vision
+---
 
-- **Open hardware & firmware** — build, flash, and extend the robot yourself.
-- **Self-hosted intelligence** — you control where audio and video go.
-- **Composable modules** — main ROM (`deskbot-rom`) and camera (`deskbot-camera`) are independent PlatformIO projects in one repo.
+## 1. Out of the box
 
-## Install
+1. Set your router or phone hotspot to **`deskbot_wifi` / `hello2026`** (defaults in [`firmware/deskbot_config.h`](firmware/deskbot_config.h)).
+2. Power on — the device joins that WiFi and talks to your backend.
+3. To use another SSID: edit `WIFI_DEFAULT_*` and `DESKBOT_WS_*` before flash, or join AP **`Deskbot_Rom`** → **`http://192.168.4.1/`**.
 
-**Requirements:** USB cable, Linux `dialout` group (or equivalent serial access), [PlatformIO](https://platformio.org/) (`pip install platformio`).
+---
 
-```bash
-git clone https://github.com/OpenDeskBot/open-deskbot-hardware.git
-cd open-deskbot-hardware
-```
+## 2. Developers
 
-Configure **`deskbot.local.env`** at repo root (shared by ROM + camera):
+Edit [`firmware/deskbot_config.h`](firmware/deskbot_config.h), then:
 
 ```bash
-cp deskbot.local.env.example deskbot.local.env
-# First flash prompts for missing WiFi (Enter to skip)
-# DEVICE_ID auto-generated; server defaults 39.107.38.241:9000
-```
-
-Flash scripts inject WiFi + device_id + server into both modules.
-
-### Main controller (required)
-
-See **[deskbot-rom/README.md](deskbot-rom/README.md)**:
-
-```bash
-cd deskbot-rom
 ./flash_rom.sh all
 ```
 
-### Camera module (optional)
+Deploy [open-deskbot-service](https://github.com/OpenDeskBot/open-deskbot-service). Firmware WebSocket: **`/asr_chat`**.
 
-See **[deskbot-camera/README.md](deskbot-camera/README.md)**:
+Optional debug: `http://<device-ip>/` for a local camera page.
 
-```bash
-cd deskbot-camera
-./flash_camera.sh all
-```
+---
 
-### Backend
+## 3. DIY assembly
 
-Deploy **opendesk-service** on a reachable host. Use the same server IP in both `platformio.local.ini` files above.
+| Part | Notes | Search terms |
+|------|-------|----------------|
+| MCU | Camera module + **onboard mic** on the Sense board (**no extra purchase**) | Seeed XIAO ESP32S3 **Sense** |
+| Lens | For **OV2640**; **120°** wide angle; **same-plane** (not off-axis); **25 mm** length | `OV2640 lens 120° same plane 25mm` |
+| LCD | 1.83" SPI ST7789 240×284 | Waveshare 1.83 LCD Rev2 |
+| Servos | **Large + small**; pan = **2g micro servo**, tilt = larger servo | `2g servo`, `SG90` / `9g servo` |
+| Amp | I2S | MAX98357A |
+| Speaker | **2011** type | `2011 speaker`, `8Ω 2011` |
+| Power | 5V ≥1A for servos | — |
+| PCB | This repo includes an extension **PCB** for easier wiring; **hand-wiring without the PCB also works** | — |
 
-## Repository layout
+### Assembly guide & reference photos
 
-```
-open-deskbot-hardware/
-├── deskbot-rom/       # ESP32-S3 main firmware + flash_rom.sh
-├── deskbot-camera/    # XIAO ESP32S3 Sense camera + flash_camera.sh
-└── docs/              # Architecture, contributing
-```
+- **Step-by-step manual:** [`mechanical/说明书1.02PDF.pdf`](mechanical/说明书1.02PDF.pdf)
+- **All parts laid out:** [`mechanical/parts-overview.png`](mechanical/parts-overview.png)
+- **Core assembly done (shell not installed):** [`mechanical/assembly-without-shell.png`](mechanical/assembly-without-shell.png)
+- **Side view without shell:** [`mechanical/assembly-side-no-shell.png`](mechanical/assembly-side-no-shell.png)
 
-| Topic | Document |
-|-------|----------|
-| System architecture | [docs/ARCHITECTURE.md](docs/ARCHITECTURE.md) |
-| Main ROM (usage & specs) | [deskbot-rom/README.md](deskbot-rom/README.md) |
-| Camera (usage & specs) | [deskbot-camera/README.md](deskbot-camera/README.md) |
-| Contributing | [CONTRIBUTING.md](CONTRIBUTING.md) |
+### Wiring (XIAO pad → device)
+
+> Schematic **IO8 / IO3** = **GPIO numbers**, not silkscreen D8/D3.
+
+| Device | Signals | XIAO pads |
+|--------|---------|-----------|
+| LCD SPI | MOSI/CLK/CS/DC | D10 / D8 / D1 / D2 |
+| Servo X (pan) | PWM | **D7** (2g) |
+| Servo Y (tilt) | PWM | **D6** (large) |
+| MAX98357 | DIN/BCLK/LRC | D0 / D5 / D4 → 2011 speaker |
+| Mic | PDM | **Onboard** (ESP32S3 Sense) |
+
+Details: [`firmware/deskbot_config.h`](firmware/deskbot_config.h).
+
+---
 
 ## License
 
-[GNU General Public License v3.0](LICENSE).
-
-## Author
-
-Mark Yang — mark.yang@ewen.ltd
+| Scope | License | File |
+|-------|---------|------|
+| Hardware ([`mechanical/`](mechanical/)) | CERN-OHL-S-2.0 | [`mechanical/LICENSE`](mechanical/LICENSE) |
+| Software ([`firmware/`](firmware/) etc.) | GNU GPL v3.0 | [`firmware/LICENSE`](firmware/LICENSE) |

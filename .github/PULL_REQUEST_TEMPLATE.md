@@ -1,10 +1,9 @@
-## Summary
+## 说明
 
-<!-- What does this PR change and why? -->
+<!-- 改了什么、为什么 -->
 
-## Test plan
+## 测试
 
-- [ ] ROM firmware builds: `cd deskbot-rom && ./flash_rom.sh build`
-- [ ] Camera firmware builds: `cd deskbot-camera && ./flash_camera.sh build` (if touched)
-- [ ] opendesk-service starts if voice/debug UI changed (separate repo)
-- [ ] No secrets / venv / `.pyc` added
+- [ ] `./flash_rom.sh build` 通过
+- [ ] 若改 `firmware/deskbot_config.h` 默认值：未提交内网 IP / WiFi 密码
+- [ ] 未提交 `.pio/`、`.venv/`、`deskbot.local.env` 等本地文件

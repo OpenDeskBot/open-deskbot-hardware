@@ -13,12 +13,9 @@ Pipfile*
 .pio/
 .pioenvs/
 .piolibdeps/
+sdkconfig.*
+!sdkconfig.defaults
 platformio.local.ini
-deskbot.local.env
-deskbot-rom/deskbot_build.local.ini
-deskbot-camera/deskbot_build.local.ini
-deskbot-rom/device_id.local.ini
-deskbot-camera/device_id.local.ini
 
 # Logs & local runtime
 *.log
@@ -47,10 +44,8 @@ Thumbs.db
 *.pem
 credentials.json
 secrets.yaml
-deskbot-rom/firmware/wifi_defaults.h
-deskbot-camera/firmware/wifi_defaults.h
 
-# Camera / tools runtime artifacts
-deskbot-camera/tools/sent_images/
-deskbot-camera/sent_images/
+# Tools runtime artifacts
+tools/sent_images/
+sent_images/
 *.avi

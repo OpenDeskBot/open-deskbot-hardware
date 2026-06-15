@@ -1,34 +1,34 @@
 ---
 name: Bug report
-about: Report a firmware or tooling issue
+about: deskbot_rom 固件或 flash_rom.sh 问题
 title: ''
 labels: bug
 assignees: ''
 ---
 
-**Firmware / tool**
-- [ ] deskbot-rom (production)
-- [ ] opendesk-service (voice backend)
-- [ ] flash_rom.sh / flash_camera.sh / other
+**范围**
+- [ ] 固件 `firmware/`（deskbot_rom）
+- [ ] `flash_rom.sh` / PlatformIO 编译烧录
+- [ ] 语音后台 [open-deskbot-service](https://github.com/OpenDeskBot/open-deskbot-service)（另仓）
 
-**Environment**
-- OS:
-- PlatformIO version:
-- Serial port:
+**环境**
+- 板卡：Seeed XIAO ESP32S3 Sense
+- OS / PlatformIO 版本：
+- 串口：
 
-**Steps to reproduce**
+**配置**（若相关）
+- `firmware/deskbot_config.h` 中 WiFi / WS 是否已改：
+- LCD：ST7789P 1.83"
+
+**复现步骤**
 
 1.
 2.
 
-**Expected behavior**
+**期望 / 实际**
 
 
-**Actual behavior**
-
-
-**Logs / screenshots**
+**串口日志**
 
 ```
-(paste serial or browser console excerpt)
 ```
