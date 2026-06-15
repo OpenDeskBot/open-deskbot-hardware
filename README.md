@@ -6,6 +6,8 @@
 
 **Brufik** is an open-source deskbot on **Seeed XIAO ESP32S3 Sense**. Backend: [open-deskbot-service](https://github.com/OpenDeskBot/open-deskbot-service).
 
+![Brufik deskbot — assembled unit](mechanical/poster.jpg)
+
 ---
 
 ## 1. Out of the box

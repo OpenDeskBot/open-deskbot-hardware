@@ -6,6 +6,8 @@
 
 **Brufik** 是一款开源桌面机器人：Seeed XIAO ESP32S3 Sense + 屏 + 舵机 + 麦 + 喇叭。语音与画面走自建后台 [open-deskbot-service](https://github.com/OpenDeskBot/open-deskbot-service)。
 
+![Brufik 桌面机器人 — 组装完成实物](mechanical/poster.jpg)
+
 ---
 
 ## 一、开箱即用
